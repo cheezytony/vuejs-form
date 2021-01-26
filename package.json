@@ -1,5 +1,5 @@
 {
-  "name": "vuejs-form",
+  "name": "@cheezytony/vue-form",
   "version": "1.0.0",
   "description": "Form package for vue js",
   "main": "src/index.js",
@@ -11,8 +11,9 @@
     "vue",
     "form",
     "validation",
-    "vue-form",
-    "form-validation"
+    "vue form",
+    "vue form validation",
+    "form validation"
   ],
   "author": "Antonio Okoro",
   "license": "ISC"
