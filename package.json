@@ -1,8 +1,8 @@
 {
   "name": "@cheezytony/vue-form",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Form package for vue js",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
