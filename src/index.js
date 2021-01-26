@@ -25,12 +25,12 @@ export default {
       // Form Methods
       methods: {
         getFormValue(key, baseForm = null) {
-          const form = baseForm ?? this.form;
+          const form = baseForm || this.form;
 
           return form?.data?.[key]?.value;
         },
         getFormData(baseForm = null) {
-          const form = baseForm ?? this.form;
+          const form = baseForm || this.form;
 
           const data = {};
 
@@ -41,7 +41,7 @@ export default {
           return data;
         },
         getFirstError(name, baseForm = null) {
-          const form = baseForm ?? this.form;
+          const form = baseForm || this.form;
 
           const errors = form.data[name]?.errors;
 
@@ -54,7 +54,7 @@ export default {
           return errors[firstErrorKey];
         },
         getFormError(baseForm = null) {
-          const form = baseForm ?? this.form;
+          const form = baseForm || this.form;
 
           if (!form.error) {
             return null;
@@ -96,7 +96,7 @@ export default {
           });
         },
         resetForm(baseForm = null) {
-          const form = baseForm ?? this.form;
+          const form = baseForm || this.form;
 
           const data = {
             ...form.baseState,
