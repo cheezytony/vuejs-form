@@ -17,12 +17,12 @@ function isUndefined(value) {
   return value === undefined;
 }
 
-function fromSlug() {
-  return this.replace(/[-_]/g, " ");
+function fromSlug(string) {
+  return string.replace(/[-_]/g, " ");
 }
 
-function ucFirst() {
-  return this.replace(/^\w/g, (match) => match.toUpperCase());
+function ucFirst(string) {
+  return string.replace(/^\w/g, (match) => match.toUpperCase());
 }
 
 var _default = {

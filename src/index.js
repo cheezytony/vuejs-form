@@ -8,7 +8,7 @@ function fromSlug(string) {
   return string.replace(/[-_]/g, ' ');
 }
 
-function ucFirst()string {
+function ucFirst(string) {
   return string.replace(/^\w/g, (match) => match.toUpperCase());
 }
 
