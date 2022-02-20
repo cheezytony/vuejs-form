@@ -161,6 +161,8 @@ export default {
 
             switch (ruleName) {
               case 'required':
+              case 'true':
+              case 'false':
               case 'email':
               case 'privateEmail':
               case 'alpha':
@@ -255,6 +257,22 @@ export default {
             return ucFirst('this field is required');
           },
         },
+        true: {
+          test(data) {
+            return data === true;
+          },
+          message() {
+            return ucFirst('this field has to be true');
+          },
+        },
+        false: {
+          test(data) {
+            return data === false;
+          },
+          message() {
+            return ucFirst('this field has to be false');
+          },
+        },
         requiredIf: {
           test(data, condition) {
             switch (condition) {
@@ -347,10 +365,10 @@ export default {
         },
         alphaNumPunct: {
           test(data) {
-            return data && data.toString().match(/[a-zA-Z]+/) && data.toString().match(/[0-9]+/) && data.toString().match(/[!@#$%^&*()_+~`{}[\]\\;:'"<>,.?/]+/);
+            return data && data.toString().match(/[a-zA-Z]+/) && data.toString().match(/[0-9]+/) && data.toString().match(/[!@#$%^&*()\-_+~`{}[\]\\;:'"<>,.?/]+/);
           },
           message() {
-            return ucFirst('this field must contain letters, numbers and punctuations');
+            return ucFirst('this field must contain letters, numbers and special characters');
           },
         },
         name: {
@@ -374,16 +392,16 @@ export default {
             if (!data) {
               return false;
             }
-            if (typeof min !== 'number' && Number.isNaN(min)) {
-              throw new Error("rule parameter 'min' has to be a number");
-            }
-            if (typeof data === 'number' || !Number.isNaN(data)) {
+            // if (typeof min !== 'number') {
+            //   throw new Error("rule parameter 'min' has to be a number");
+            // }
+            if (typeof data === 'number') {
               return Number(data) >= min;
             }
             return data.toString().length >= min;
           },
           message(name, min, data) {
-            if (typeof data === 'number' || !Number.isNaN(data)) {
+            if (typeof data === 'number') {
               return ucFirst(`this field has to be at least ${min}`);
             }
             return ucFirst(`this field has to contain at least ${min} characters`);
@@ -396,16 +414,16 @@ export default {
             if (!data) {
               return false;
             }
-            if (typeof max !== 'number' && Number.isNaN(max)) {
-              throw new Error("rule parameter 'max' has to be a number");
-            }
-            if (typeof data === 'number' || !Number.isNaN(data)) {
+            // if (typeof max !== 'number') {
+            //   throw new Error("rule parameter 'max' has to be a number");
+            // }
+            if (typeof data === 'number') {
               return Number(data) <= max;
             }
             return data.toString().length <= max;
           },
           message(name, max, data) {
-            if (typeof data === 'number' || !Number.isNaN(data)) {
+            if (typeof data === 'number') {
               return ucFirst(`this field has to be less than ${max}`);
             }
             return ucFirst(`this field has to contain less than ${max} characters`);
@@ -418,13 +436,14 @@ export default {
             if (!data) {
               return false;
             }
-            if (typeof length === 'number' && Number.isNaN(length)) {
-              throw new Error("rule parameter 'length' has to be a number");
-            }
-            if (typeof data === 'number') {
-              return data === length;
-            }
-            return data.toString().length === length;
+            // if (typeof length === 'number') {
+            //   throw new Error("rule parameter 'length' has to be a number");
+            // }
+            // if (typeof data === 'number') {
+            //   return data === length;
+            // }
+            // eslint-disable-next-line eqeqeq
+            return data.toString().length == Number(length);
           },
           message(name, length) {
             return ucFirst(`this field has to be exactly ${length} characters`);
@@ -506,7 +525,7 @@ export default {
                 rules,
               };
               break;
-            case Object:
+            default:
               name = !isUndefined(key.name) ? key.name : name;
               form.data[name] = {
                 ...key,
@@ -514,9 +533,6 @@ export default {
                 errors: !isUndefined(key.errors) ? key.errors : errors,
                 rules: !isUndefined(key.rules) ? key.rules : rules,
               };
-              break;
-            default:
-              // statements_def
               break;
           }
         });
